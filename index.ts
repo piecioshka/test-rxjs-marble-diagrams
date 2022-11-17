@@ -14,15 +14,15 @@ interface ActionWithString {
   content: string;
 }
 
-const action1Epic = (action$: Observable<ExampleAction>) =>
+const exampleEpic$ = (action$: Observable<ExampleAction>) =>
   action$.pipe(
     ofType<ExampleAction, 'ActionWithNumber'>('ActionWithNumber'),
     map(({ content }) => {
-      console.log('aaaaa', content);
+      console.log('content', content);
       return content + content;
     }),
     catchError((err, err$) => {
-      console.log('err', err);
+      console.error('error', err);
       return err$;
     })
   );
@@ -33,11 +33,8 @@ const testScheduler = new TestScheduler((actual, expected) => {
 });
 
 testScheduler.run(({ expectObservable }) => {
-  const o1 = of({ type: 'ActionWithNumber' as const, content: 128 });
-
+  const input$ = of({ type: 'ActionWithNumber' as const, content: 128 });
   const expected = '(a|)';
-  const epic$ = action1Epic(o1);
-  epic$.subscribe();
-
-  expectObservable(epic$).toBe(expected, { a: 256 });
+  const output$ = exampleEpic$(input$);
+  expectObservable(output$).toBe(expected, { a: 256 });
 });
