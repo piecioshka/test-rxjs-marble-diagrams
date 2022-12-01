@@ -1,6 +1,6 @@
 import { ofType } from 'redux-observable';
 import { TestScheduler } from 'rxjs/testing';
-import { isEqual } from 'lodash-es';
+import { isEqual } from 'lodash';
 import { of, map, Observable, catchError } from 'rxjs';
 
 type ExampleAction = ActionWithNumber | ActionWithString;
