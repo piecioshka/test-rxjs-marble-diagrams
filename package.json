@@ -1,6 +1,7 @@
 {
   "name": "test-rxjs-marble-diagrams",
   "version": "0.0.0",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "start": "ts-node --esm index.ts"
